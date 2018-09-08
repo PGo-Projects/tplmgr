@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"path/filepath"
+	"strings"
 
 	"github.com/oxtoacart/bpool"
 )
@@ -20,6 +21,12 @@ var config *Config
 var mainTmpl = `{{ define "main" }} {{ template "base" . }} {{ end }}`
 
 func SetConfig(layoutPath string, includePath string) {
+	if !strings.HasSuffix(layoutPath, "/") {
+		layoutPath += "/"
+	}
+	if !strings.HasSuffix(includePath, "/") {
+		includePath += "/"
+	}
 	config = &Config{layoutPath, includePath}
 }
 
