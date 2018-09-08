@@ -2,7 +2,8 @@ package tplmgr
 
 import (
 	"html/template"
-
+	"log"
+	"path/filepath"
 
 	"github.com/oxtoacart/bpool"
 )
@@ -24,7 +25,7 @@ func SetConfig(layoutPath string, includePath string) {
 
 func MustLoad() {
 	funcMap := template.FuncMap{}
-	MustLoadTemplatesWithFuncs(funcMap)
+	MustLoadWithFuncs(funcMap)
 }
 
 func MustLoadWithFuncs(funcMap template.FuncMap) {
@@ -42,7 +43,8 @@ func MustLoadWithFuncs(funcMap template.FuncMap) {
 	for _, file := range includeFiles {
 		filename := filepath.Base(file)
 		files := append(layoutFiles, file)
-		templates[filename], err := mainTemplate.Clone()
+		var err error
+		templates[filename], err = mainTemplate.Clone()
 		if err != nil {
 			log.Fatal(err)
 		}
