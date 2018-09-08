@@ -1,0 +1,9 @@
+[submodule "vendor/github.com/pkg/errors"]
+	path = vendor/github.com/pkg/errors
+	url = git@github.com:pkg/errors.git
+[submodule "vendor/github.com/oxtoacart/bpool"]
+	path = vendor/github.com/oxtoacart/bpool
+	url = git@github.com:oxtoacart/bpool.git
+[submodule "vendor/github.com/go-webpack/webpack"]
+	path = vendor/github.com/go-webpack/webpack
+	url = git@github.com:go-webpack/webpack.git
