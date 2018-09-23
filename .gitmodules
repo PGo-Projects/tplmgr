@@ -7,3 +7,9 @@
 [submodule "vendor/github.com/go-webpack/webpack"]
 	path = vendor/github.com/go-webpack/webpack
 	url = git@github.com:go-webpack/webpack.git
+[submodule "vendor/github.com/volatiletech/authboss"]
+	path = vendor/github.com/volatiletech/authboss
+	url = git@github.com:volatiletech/authboss.git
+[submodule "vendor/golang.org/x/oauth2"]
+	path = vendor/golang.org/x/oauth2
+	url = git@github.com:golang/oauth2.git
