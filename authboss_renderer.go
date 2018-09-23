@@ -2,8 +2,10 @@ package tplmgr
 
 import (
 	"context"
+	"net/http"
 	"strings"
 
+	"github.com/justinas/nosurf"
 	"github.com/pkg/errors"
 	"github.com/volatiletech/authboss"
 )
@@ -48,4 +50,19 @@ func (abhr *AuthbossHTMLRenderer) Render(ctx context.Context, name string, data 
 	}
 
 	return buf.Bytes(), "text/html", nil
+}
+
+func AuthbossSAHTMLRenderer(w http.ResponseWriter, r *http.Request, name string, extension string data authboss.HTMLData) {
+	var htmlData authboss.HTMLData
+	contextData := r.Context().Value(authboss.CTXKeyData)
+	if contextData == nil {
+		htmlData = authboss.HTMLData{}
+	} else {
+		htmlData = contextData.(authboss.HTMLData)
+	}
+
+	htmlData.MergeKV("csrf_token", nosurf.Token(r))
+	htmlData.Merge(data)
+
+	Render(w, name+extension, htmlData)
 }
