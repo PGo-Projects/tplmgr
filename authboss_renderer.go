@@ -32,7 +32,7 @@ func (abhr *AuthbossHTMLRenderer) Render(ctx context.Context, name string, data 
 	buf := bufpool.Get()
 	defer bufpool.Put(buf)
 
-	err := template.Execute(buf, data)
+	err = template.Execute(buf, data)
 	if err != nil {
 		return nil, "", errors.Wrapf(err, "failed to render template for page %s", name)
 	}
