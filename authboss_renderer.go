@@ -52,7 +52,7 @@ func (abhr *AuthbossHTMLRenderer) Render(ctx context.Context, name string, data 
 	return buf.Bytes(), "text/html", nil
 }
 
-func AuthbossSAHTMLRenderer(w http.ResponseWriter, r *http.Request, name string, extension string data authboss.HTMLData) {
+func AuthbossSAHTMLRenderer(w http.ResponseWriter, r *http.Request, name string, extension string, data authboss.HTMLData) {
 	var htmlData authboss.HTMLData
 	contextData := r.Context().Value(authboss.CTXKeyData)
 	if contextData == nil {
