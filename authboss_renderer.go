@@ -12,6 +12,16 @@ type AuthbossHTMLRenderer struct {
 	extension string
 }
 
+func NewAuthbossHTMLRenderer() *AuthbossHTMLRenderer {
+	return &AuthbossHTMLRenderer{}
+}
+
+func NewAuthbossHTMLRendererWithExt(extension string) *AuthbossHTMLRenderer {
+	return &AuthbossHTMLRenderer{
+		extension: extension,
+	}
+}
+
 func (abhr *AuthbossHTMLRenderer) SetExtension(extension string) {
 	abhr.extension = extension
 }
