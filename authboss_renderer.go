@@ -10,6 +10,8 @@ import (
 	"github.com/volatiletech/authboss"
 )
 
+type HTMLData = authboss.HTMLData
+
 type AuthbossHTMLRenderer struct {
 	extension string
 }
@@ -32,7 +34,7 @@ func (abhr *AuthbossHTMLRenderer) Load(names ...string) error {
 	return nil
 }
 
-func (abhr *AuthbossHTMLRenderer) Render(ctx context.Context, name string, data authboss.HTMLData) (output []byte, contentType string, err error) {
+func (abhr *AuthbossHTMLRenderer) Render(ctx context.Context, name string, data HTMLData) (output []byte, contentType string, err error) {
 	if !strings.HasSuffix(name, abhr.extension) {
 		name += abhr.extension
 	}
@@ -52,7 +54,7 @@ func (abhr *AuthbossHTMLRenderer) Render(ctx context.Context, name string, data 
 	return buf.Bytes(), "text/html", nil
 }
 
-func AuthbossSAHTMLRenderer(w http.ResponseWriter, r *http.Request, name string, extension string, data authboss.HTMLData) {
+func AuthbossSAHTMLRenderer(w http.ResponseWriter, r *http.Request, name string, extension string, data HTMLData) {
 	var htmlData authboss.HTMLData
 	contextData := r.Context().Value(authboss.CTXKeyData)
 	if contextData == nil {
