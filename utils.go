@@ -22,8 +22,8 @@ func mustGetIncludeFiles() (includeFiles []string) {
 	return
 }
 
-func mustGetMain(funcMap template.FuncMap) (mainTemplate *template.Template) {
-	mainTemplate, err := template.New("main").Funcs(funcMap).Parse(mainTmpl)
+func mustGetMain(funcMap template.FuncMap, leftDelim string, rightDelim string) (mainTempl *template.Template) {
+	mainTempl, err := template.New("main").Funcs(funcMap).Parse(mainTmpl)
 	if err != nil {
 		log.Fatal(err)
 	}

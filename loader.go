@@ -18,7 +18,10 @@ var templates map[string]*template.Template
 var bufpool *bpool.BufferPool
 var config *Config
 
-var mainTmpl = `{{ define "main" }} {{ template "base" . }} {{ end }}`
+var leftDelim = "{{"
+var rightDelim = "}}"
+
+const mainTmpl = `{{ define "main" }} {{ template "base" . }} {{ end }}`
 
 func SetConfig(layoutPath string, includePath string) {
 	if !strings.HasSuffix(layoutPath, "/") {
@@ -28,6 +31,11 @@ func SetConfig(layoutPath string, includePath string) {
 		includePath += "/"
 	}
 	config = &Config{layoutPath, includePath}
+}
+
+func SetDelimiters(leftDelimiters string, rightDelimiters string) {
+	leftDelim = leftDelimiters
+	rightDelim = rightDelimiters
 }
 
 func MustLoad() {
@@ -45,7 +53,7 @@ func MustLoadWithFuncs(funcMap template.FuncMap) {
 
 	layoutFiles := mustGetLayoutFiles()
 	includeFiles := mustGetIncludeFiles()
-	mainTemplate := mustGetMain(funcMap)
+	mainTemplate := mustGetMain(funcMap, leftDelim, rightDelim)
 
 	for _, file := range includeFiles {
 		filename := filepath.Base(file)
@@ -55,7 +63,7 @@ func MustLoadWithFuncs(funcMap template.FuncMap) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		templates[filename] = template.Must(templates[filename].Funcs(funcMap).ParseFiles(files...))
+		templates[filename] = template.Must(templates[filename].Delims(leftDelim, rightDelim).Funcs(funcMap).ParseFiles(files...))
 	}
 	log.Println("Successfully loaded templates!")
 
